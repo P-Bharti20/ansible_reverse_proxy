@@ -1,0 +1,19 @@
+---
+# tasks file for haproxy
+
+- name: "Install Load Balancer software"
+  package:
+    name: "haproxy"
+    state: present
+
+- name: "Copy config file for reverse proxy"
+  template:
+    dest: "/etc/haproxy/haproxy.cfg"
+    src: "haproxy.cfg"
+  notify: restart_service
+
+- name: "Start and enable the service"
+  service:
+    name: "haproxy"
+    state: started
+    enabled: yes

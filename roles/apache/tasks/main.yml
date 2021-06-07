@@ -1,0 +1,24 @@
+---
+# tasks file for apache
+
+- name: "Install Apache Webserver"
+  package:
+    name: "httpd"
+    state: present
+
+- name: "Install PHP software"
+  package:
+    name: "php"
+    state: present
+
+- name: "Deploy web pages"
+  copy:
+    src: index.php
+    dest: /var/www/html/index.php
+  notify: restart_service
+
+- name: "Start and enable httpd service"
+  service:
+    name: "httpd"
+    state: started
+    enabled: yes
